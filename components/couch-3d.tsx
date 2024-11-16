@@ -1,20 +1,10 @@
 import { useTexture } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
-import { useRef } from "react"
 import * as THREE from 'three'
 
 export default function Couch() {
-  const meshRef = useRef<THREE.Mesh>(null)
-
   const leatherTexture = useTexture('/textures/leather.png')
   leatherTexture.wrapS = leatherTexture.wrapT = THREE.RepeatWrapping
   leatherTexture.repeat.set(2, 2)
-
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2) * 0.1
-    }
-  })
 
   return (
     <group>

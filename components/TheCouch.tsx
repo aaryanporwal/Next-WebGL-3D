@@ -5,29 +5,24 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Calendar } from 'lucide-react'
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Home } from './Home'
-
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 1.5 } }
-};
 
 export function TheCouch() {
   const [activeTab, setActiveTab] = useState('about')
 
   const psychologists = [
-    { name: "Dr. Emma Thompson", experience: 15, specialization: "Cognitive Behavioral Therapy" },
-    { name: "Dr. Michael Chen", experience: 12, specialization: "Family Therapy" },
-    { name: "Dr. Sarah Patel", experience: 10, specialization: "Trauma and PTSD" },
+    { name: "Dr. Weasel", experience: 15, specialization: "Cognitive Behavioral Therapy", imageUrl: "https://placebear.com/g/300/300" },
+    { name: "Dr. Lion", experience: 12, specialization: "Family Therapy", imageUrl: "https://placebear.com/g/300/300" },
+    { name: "Dr. Fox", experience: 10, specialization: "Trauma and PTSD", imageUrl: "https://placebear.com/g/300/300" },
   ]
 
   return (
-    <motion.div className="min-h-screen bg-white text-black font-sans" initial="hidden" animate="visible" variants={fadeIn}>
+    <motion.div className="min-h-screen text-black font-sans" initial="hidden" animate="visible">
       {/* Hero Section */}
       <Home />
-
       {/* Navigation */}
-      <motion.nav className="sticky top-0 bg-white border-b border-gray-200 z-10" variants={fadeIn}>
+      <motion.nav className="sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex justify-center space-x-4">
           <Button 
             variant={activeTab === 'about' ? 'default' : 'ghost'}
@@ -69,6 +64,7 @@ export function TheCouch() {
               {psychologists.map((psych, index) => (
                 <Card key={index}>
                   <CardHeader>
+                    <Image src={psych.imageUrl} alt={psych.name} width={300} height={300} className="w-full h-48 object-cover mb-4 rounded-lg" />
                     <CardTitle>{psych.name}</CardTitle>
                     <CardDescription>{psych.experience} years of experience</CardDescription>
                   </CardHeader>
@@ -84,21 +80,23 @@ export function TheCouch() {
         {activeTab === 'booking' && (
           <section id="booking" className="mb-12">
             <h2 className="text-4xl font-bold mb-8">Book a Session</h2>
-            <Card>
-              <CardHeader>
-                <CardTitle>Select a Date and Time</CardTitle>
-                <CardDescription>Choose a convenient slot for your therapy session</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-center p-4">
-                  <Calendar className="w-16 h-16 text-red-500" />
-                </div>
-                <p className="text-center mb-4">Our booking system is simple and user-friendly.</p>
-                <Button className="w-full bg-red-500 hover:bg-red-600 text-white">
-                  View Available Slots
-                </Button>
-              </CardContent>
-            </Card>
+            {/* <div className="flex flex-col items-center"> */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Select a Date and Time</CardTitle>
+                  <CardDescription>Choose a convenient slot for your therapy session</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-center p-4">
+                    <Calendar className="w-16 h-16 text-red-500" />
+                  </div>
+                  <p className="text-center mb-4">Our booking system is simple and user-friendly.</p>
+                  <Button className="w-full bg-red-500 hover:bg-red-600 text-white">
+                    View Available Slots
+                  </Button>
+                </CardContent>
+              </Card>
+            {/* </div> */}
           </section>
         )}
       </div>
