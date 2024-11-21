@@ -1,31 +1,38 @@
-import React from 'react';
-import '../app/styles.css';
+"use client";
+import React, { FC, useEffect } from "react";
+import { Gradient } from "../lib/gradient";
 
+type MeshGradientBackgroundProps = {
+  children: React.ReactNode;
+};
 
-function MeshGradientBackground(children:React.ReactNode) {
+const MeshGradientBackground:FC<MeshGradientBackgroundProps> = ({children}) =>{
+  useEffect(() => {
+    // Initialize the gradient after the component mounts
+    const gradient = new Gradient();
+    gradient.initGradient("#gradient-canvas");
+  }, []);
+
   return (
-      <div style={{ position: 'relative', height: '100vh' }}>
-          <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              backgroundColor: '#ff99df',
-              backgroundImage: `
-                radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0px, transparent 50%),
-                radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%),
-                radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%),
-                radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%),
-                radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%),
-                radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%)`,
-              backgroundSize: '150% 150%',
-              filter: 'blur(80px)',
-              animation: 'moveBackground 10s linear infinite',
-          }}></div>
-            {children}
-      </div>
+    <div style={{ position: "relative", height: "100vh" }}>
+      {/* Canvas for the gradient background */}
+      <canvas
+        id="gradient-canvas"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          "--gradient-color-1": "#dca8d8",
+          "--gradient-color-2": "#a3d3f9",
+          "--gradient-color-3": "#fcd6d6",
+        }}
+        >
+      </canvas>
+      {children}
+    </div>
   );
 }
+
 export default MeshGradientBackground;

@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Home } from './Home'
 
-export function TheCouch() {
+const TheCouch = () => {
   const [activeTab, setActiveTab] = useState('about')
 
   const psychologists = [
@@ -110,3 +110,5 @@ export function TheCouch() {
     </motion.div>
   )
 }
+
+export default TheCouch;
